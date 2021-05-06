@@ -17,6 +17,21 @@ for (var i = 0; i < 5; i++) {
 }
 alert("I numeri da memorizzare sono:\n" + numsString);
 
+//timer
+var timeLeft = 30;
+var timer = document.getElementById('timer');
+var timerId = setInterval(function() {
+    if (timeLeft == -1) {
+        clearTimeout(timerId);
+    } else {
+    timer.innerHTML = timeLeft;
+    timeLeft--;
+    console.log(timeLeft);
+    }
+}, 1000);
+
+
+
 //timeout 30s, then ask user for 5 nums input and compares them with random generated number array
 setTimeout(function () {
     var userTries = fillArray(5);
