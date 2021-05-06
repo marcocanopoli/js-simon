@@ -16,14 +16,13 @@ for (var i = 0; i < 5; i++) {
     nums.push(num);
 }
 alert("I numeri da memorizzare sono:\n" + numsString);
-console.log(nums);
 
 //timeout 30s, then ask user for 5 nums input and compares them with random generated number array
 setTimeout(function () {
     var userTries = fillArray(5);
     var inCommon = checkUserTries(nums, userTries);    
-    alert("Hai indovinato " + inCommon.length + " numeri:\n" + inCommon);
-}, 2000);
+    alert("Hai indovinato " + inCommon.length + " numeri:\nNumeri indovinati: " + inCommon);
+}, 30000);
 
 //------ FUNCTIONS ------//
 //gets random int with min and max included
@@ -40,10 +39,10 @@ function getUserNumber() {
     return(num);
 }
 
-//returns array with user number prompts, number of prompts in argument
-function fillArray(tries) {
+//returns array filled with user number prompts, number of prompts in argument
+function fillArray(items) {
     var array = [];
-    while (array.length < tries) {
+    while (array.length < items) {
         var num = getUserNumber();
         array.push(num);
     }
