@@ -10,33 +10,33 @@ var numsString= "";
 var userTries = [];
 
 //string and array with 5 random numbers
-for (var i = 0; i < 5; i++) {
-    var num = getRandomNumber(0, 100);
-    numsString += num + " ";
-    nums.push(num);
+while (nums.length < 5) {
+    var num = getRandomNumber(1, 100);
+    if (!nums.includes(num)) {
+        numsString += num + " ";
+        nums.push(num);
+    }
 }
 alert("I numeri da memorizzare sono:\n" + numsString);
 
 //timer
 var timeLeft = 30;
-var timer = document.getElementById('timer');
-var timerId = setInterval(function() {
+var timerHTML = document.getElementById('timer');
+var timer = setInterval(function() {
     if (timeLeft == -1) {
-        clearTimeout(timerId);
+        clearTimeout(timer);
     } else {
-    timer.innerHTML = timeLeft;
-    timeLeft--;
-    console.log(timeLeft);
+        timerHTML.innerHTML = timeLeft;
+        timeLeft--;
+        console.log(timeLeft);
     }
 }, 1000);
 
-
-
-//timeout 30s, then ask user for 5 nums input and compares them with random generated number array
+//timeouts 30s, then ask user for 5 nums input and compares them with random generated number array
 setTimeout(function () {
     var userTries = fillArray(5);
-    var inCommon = checkUserTries(nums, userTries);    
-    alert("Hai indovinato " + inCommon.length + " numeri:\nNumeri indovinati: " + inCommon);
+    var guessed = checkDuplicates(nums, userTries);    
+    alert("Hai indovinato " + guessed.length + " numeri:\nNumeri indovinati: " + guessed);
 }, 30000);
 
 //------ FUNCTIONS ------//
@@ -45,31 +45,23 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-//returns int between 1 and 100
-function getUserNumber() {
-    var num;
-    while (isNaN(num) || num < 1 || num > 100) {
-        num = parseInt(prompt("Inserisci un numero da 1 a 100"));
-    }
-    return(num);
-}
-
 //returns array filled with user number prompts, number of prompts in argument
 function fillArray(items) {
     var array = [];
-    while (array.length < items) {
-        var num = getUserNumber();
-        array.push(num);
+    while (array.length < items) {        
+        var num = parseInt(prompt("Inserisci un numero da 1 a 100"));    
+        if (!isNaN(num) && num >= 1 && num <= 100 && !array.includes(num)) {
+            array.push(num);
+        }
     }
     return array;
 }
 
 //given 2 arrays returns array with elements in common
-function checkUserTries(firstArray, secondArray) {
+function checkDuplicates(firstArray, secondArray) {
     var common = [];
-    var num;
     for (var i = 0; i < secondArray.length; i++){
-        num = secondArray[i];
+        var num = secondArray[i];
         if (firstArray.includes(num)) {
             common.push(num);
         }
